@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "ContainerMetric" ALTER COLUMN "blockIoReadBytes" DROP NOT NULL,
+ALTER COLUMN "blockIoWriteBytes" DROP NOT NULL,
+ALTER COLUMN "networkRxBytes" DROP NOT NULL,
+ALTER COLUMN "networkTxBytes" DROP NOT NULL,
+ALTER COLUMN "pidsCurrent" DROP NOT NULL,
+ALTER COLUMN "pidsLimit" DROP NOT NULL;

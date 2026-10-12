@@ -51,11 +51,19 @@ export class CollectorService {
       await this.prisma.containerMetric.create({
         data: {
           containerId: metrics.containerId,
+
           containerName: metrics.name,
           cpuUsagePercent: metrics.cpu.usagePercent,
           memoryUsageBytes: metrics.memory.usageBytes,
           memoryLimitBytes: metrics.memory.limitBytes,
+          networkRxBytes: metrics.network.rxBytes,
+          networkTxBytes: metrics.network.txBytes,
+          blockIoReadBytes: metrics.blockIo.readBytes,
+          blockIoWriteBytes: metrics.blockIo.writeBytes,
 
+
+          pidsCurrent: metrics.pids.current,
+          pidsLimit: metrics.pids.limit,
         },
       });
 

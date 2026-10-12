@@ -111,6 +111,7 @@ export class DockerService {
       },
       network,
       blockIo,
+
       pids: {
         current: stats.pids_stats?.current ?? 0,
         limit: stats.pids_stats?.limit ?? 0,

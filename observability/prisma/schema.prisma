@@ -37,11 +37,23 @@ model ContainerMetric {
     memoryUsageBytes    Float
     memoryLimitBytes    Float
 
+    networkRxBytes      Float?
+    networkTxBytes      Float?
+
+
+
+
+    blockIoReadBytes    Float?
+    blockIoWriteBytes   Float?
+
+    pidsCurrent         Int?
+    pidsLimit           Int?
+
     @@index([containerId, timestamp])
+
+
+
 }
-
-
-
 
 
 model Monitor {
