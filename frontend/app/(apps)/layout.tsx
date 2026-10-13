@@ -1,66 +1,82 @@
 'use client';
 
+import { useState } from 'react';
+
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { Menu, NotebookPen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Users, Search, Settings, Shield, Activity, Menu } from 'lucide-react';
+import Header from '../(dashboard)/layout';
 
-export default function NotesLayout({
-  children
-}: {
+export default function AppsLayout({
+                                          children
+                                        }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
+  const navItems = [
+    //{ href: '/apps', icon: Users, label: 'Apps' },
+    { href: '/apps/ai-notes-summarizer', icon: Settings, label: 'AI Notes Summarizer' },
+    { href: '/apps/ragchat', icon: Activity, label: 'RAGChat' },
+    { href: '/apps/agent', icon: Shield, label: 'AI Agent' },
+    { href: '/apps/automation', icon: Activity, label: 'Automation' },
+    { href: '/apps/monitoring', icon: Shield, label: 'Monitoring' },
+
+  ];
+
   return (
-    <div className="flex min-h-dvh bg-gray-50">
-      <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 border-r border-gray-200 bg-white transition-transform duration-200 lg:static lg:translate-x-0 ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}
-      >
-        <div className="border-b border-gray-200 px-5 py-4">
-          <span className="font-semibold text-gray-900">Notes</span>
-        </div>
-        <nav aria-label="Notes navigation" className="p-3">
-          <Link href="/ai-notes-summarizer" onClick={() => setIsSidebarOpen(false)}>
-            <Button
-              variant={pathname === '/ai-notes-summarizer' ? 'secondary' : 'ghost'}
-              className={`my-1 w-full justify-start shadow-none ${
-                pathname === '/ai-notes-summarizer' ? 'bg-gray-100' : ''
-              }`}
-            >
-              <NotebookPen className="h-4 w-4" />
-              AI Notes Summarizer
-            </Button>
-          </Link>
-        </nav>
-      </aside>
+    <Header>
+      <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
+        {/* Mobile header */}
+        <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
 
-      {isSidebarOpen && (
-        <button
-          type="button"
-          aria-label="Close sidebar"
-          className="fixed inset-0 z-30 bg-black/20 lg:hidden"
-          onClick={() => setIsSidebarOpen(false)}
-        />
-      )}
 
-      <div className="flex min-w-0 flex-1 flex-col">
-        <div className="flex items-center border-b border-gray-200 bg-white p-3 lg:hidden">
+          <div className="flex items-center">
+            <span className="font-medium">Settings</span>
+          </div>
           <Button
-            variant="ghost"
-            onClick={() => setIsSidebarOpen(true)}
-            aria-label="Open sidebar"
+              className="-mr-3"
+              variant="ghost"
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           >
-            <Menu className="h-5 w-5" />
+            <Menu className="h-6 w-6" />
+            <span className="sr-only">Toggle sidebar</span>
           </Button>
-          <span className="ml-2 font-medium">AI Notes Summarizer</span>
         </div>
-        <main className="min-w-0 flex-1 p-4 lg:p-8">{children}</main>
+
+        <div className="flex flex-1 overflow-hidden h-full">
+          {/* Sidebar */}
+          <aside
+              className={`w-64 bg-white lg:bg-gray-50 border-r border-gray-200 lg:block ${
+                  isSidebarOpen ? 'block' : 'hidden'
+              } lg:relative absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+                  isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
+              }`}
+          >
+            <nav className="h-full overflow-y-auto p-4">
+              {navItems.map((item) => (
+                  <Link key={item.href} href={item.href} passHref>
+                    <Button
+                        variant={pathname === item.href ? 'secondary' : 'ghost'}
+                        className={`shadow-none my-1 w-full justify-start ${
+                            pathname === item.href ? 'bg-gray-100' : ''
+                        }`}
+                        onClick={() => setIsSidebarOpen(false)}
+                    >
+                      <item.icon className="h-4 w-4" />
+                      {item.label}
+                    </Button>
+                  </Link>
+              ))}
+            </nav>
+          </aside>
+
+          {/* Main content */}
+          <main className="flex-1 overflow-y-auto p-0 lg:p-4">{children}</main>
+        </div>
       </div>
-    </div>
+    </Header>
   );
 }
