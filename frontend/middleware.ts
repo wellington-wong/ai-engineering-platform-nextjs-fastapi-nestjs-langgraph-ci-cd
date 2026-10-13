@@ -5,12 +5,17 @@ import { signToken, verifyToken } from '@/lib/auth/session';
 const protectedRoutes = '/dashboard';
 
 export async function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+  const {pathname} = request.nextUrl;
   const sessionCookie = request.cookies.get('session');
   const isProtectedRoute = pathname.startsWith(protectedRoutes);
 
   if (isProtectedRoute && !sessionCookie) {
     return NextResponse.redirect(new URL('/sign-in', request.url));
+
+
+
+  } else if (request.nextUrl.pathname === '/'){
+    return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
   let res = NextResponse.next();
