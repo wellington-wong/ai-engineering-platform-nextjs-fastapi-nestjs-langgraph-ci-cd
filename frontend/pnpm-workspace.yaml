@@ -2,3 +2,5 @@ allowBuilds:
   '@tailwindcss/oxide': set this to true or false
   esbuild: set this to true or false
   sharp: set this to true or false
+minimumReleaseAgeExclude:
+  - lucide-react@1.56.0
