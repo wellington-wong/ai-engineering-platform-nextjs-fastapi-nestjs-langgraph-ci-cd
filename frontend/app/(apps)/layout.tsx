@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Users, Search, Settings, Shield, Activity, Menu } from 'lucide-react';
+import { Activity, BotMessageSquare, HatGlasses, Menu, NotebookPen, Workflow } from 'lucide-react';
 import Header from '../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -18,11 +18,12 @@ export default function AppsLayout({
 
   const navItems = [
     //{ href: '/apps', icon: Users, label: 'Apps' },
-    { href: '/apps/ai-notes-summarizer', icon: Settings, label: 'AI Notes Summarizer' },
-    { href: '/apps/ragchat', icon: Activity, label: 'RAGChat' },
-    { href: '/apps/agent', icon: Shield, label: 'AI Agent' },
-    { href: '/apps/automation', icon: Activity, label: 'Automation' },
-    { href: '/apps/monitoring', icon: Shield, label: 'Monitoring' },
+    { href: '/apps/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer' },
+    { href: '/apps/ragchat', icon: BotMessageSquare, label: 'RAGChat' },
+    { href: '/apps/agent', icon: HatGlasses, label: 'AI Agent' },
+
+    { href: '/apps/automation', icon: Workflow, label: 'Automation' },
+    { href: '/apps/monitoring', icon: Activity, label: 'Monitoring' },
 
   ];
 
@@ -60,7 +61,7 @@ export default function AppsLayout({
                   <Link key={item.href} href={item.href} passHref>
                     <Button
                         variant={pathname === item.href ? 'secondary' : 'ghost'}
-                        className={`shadow-none my-1 w-full justify-start ${
+                        className={`shadow-none my-1 w-full justify-start cursor-pointer ${
                             pathname === item.href ? 'bg-gray-100' : ''
                         }`}
                         onClick={() => setIsSidebarOpen(false)}
