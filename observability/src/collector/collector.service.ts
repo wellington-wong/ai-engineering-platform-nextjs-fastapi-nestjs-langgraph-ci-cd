@@ -41,8 +41,8 @@ export class CollectorService {
     for (const container of containers) {
       if (container.state !== 'running') {
         continue;
-      }
 
+      }
       const metrics = await this.dockerService.getContainerMetrics(
         container.id,
 
