@@ -6,7 +6,7 @@ import {
     createNote,
     getNotes,
     summarizeNote,
-} from '../services/api'
+} from '@/app/(apps)/apps/ai-notes-summarizer/services/api'
 
 import { Note } from '@/app/types/note'
 import './notes.css';

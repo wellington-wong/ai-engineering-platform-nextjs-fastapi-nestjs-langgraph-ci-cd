@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Activity, BotMessageSquare, HatGlasses, Menu, NotebookPen, Workflow } from 'lucide-react';
-import Header from '../(dashboard)/layout';
+import Header from '../../(dashboard)/layout';
 
 export default function AppsLayout({
                                           children

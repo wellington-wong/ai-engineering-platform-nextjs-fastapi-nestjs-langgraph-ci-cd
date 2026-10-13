@@ -6,10 +6,10 @@ import {
   createNote,
   getNotes,
   summarizeNote,
-} from '@/app/(apps)/services/api'
+} from '@/app/(apps)/apps/ai-notes-summarizer/services/api'
 
 import { Note } from '@/app/types/note'
-import '../(apps)/ai-notes-summarizer/notes.css';
+import '@/app/(apps)/apps/ai-notes-summarizer/notes.css';
 export default function Home() {
   const [content, setContent] = useState<string>('')
   const [notes, setNotes] = useState<Note[]>([])
