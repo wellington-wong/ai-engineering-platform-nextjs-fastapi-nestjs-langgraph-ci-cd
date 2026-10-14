@@ -19,7 +19,7 @@ export default function AppsLayout({
   const navItems = [
     //{ href: '/apps', icon: Users, label: 'Apps' },
     { href: '/apps/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer' },
-    { href: '/apps/ragchat', icon: BotMessageSquare, label: 'RAGChat' },
+    { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAGChat', target: '_blank' },
     { href: '/apps/ai-agent', icon: HatGlasses, label: 'AI Agent' },
 
     { href: '/apps/automation', icon: Workflow, label: 'Automation' },
@@ -61,6 +61,9 @@ export default function AppsLayout({
                   <Link
                     key={item.href}
                     href={item.href}
+
+
+                    target={item?.target}
                     aria-current={
                       pathname === item.href || pathname.startsWith(`${item.href}/`)
                         ? 'page'
