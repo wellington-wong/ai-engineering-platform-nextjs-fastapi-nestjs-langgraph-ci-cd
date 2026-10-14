@@ -45,9 +45,12 @@ export default function Home() {
     }
 
     return (
-        <div className="container notes">
+        <div className="mx-auto max-w-7xl p-6 lg:p-8 container notes">
 
-            <h1>AI Notes Summarizer</h1>
+            <header className="mb-8">
+                <h1 className="text-lg lg:text-2xl font-medium mb-6">AI Notes Summarizer</h1>
+            </header>
+
 
             <form
                 className="note-form"

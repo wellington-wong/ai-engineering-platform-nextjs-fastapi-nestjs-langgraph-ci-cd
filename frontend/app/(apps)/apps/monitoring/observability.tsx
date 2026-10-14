@@ -1,11 +1,11 @@
 'use client';
-import MetricCard from './components/MetricCard';
+import MetricCard from '@/app/(apps)/apps/monitoring/components/MetricCard';
 
 
 
 import { useEffect, useState } from 'react';
-import SystemMetricsChart from './components/SystemMetricsChart';
-import ContainerList from './components/ContainerList';
+import SystemMetricsChart from '@/app/(apps)/apps/monitoring/components/SystemMetricsChart';
+import ContainerList from '@/app/(apps)/apps/monitoring/components/ContainerList';
 
 type SystemMetric = {
     timestamp: string;
@@ -96,14 +96,13 @@ export default function ObservabilityPage() {
         <main className="min-h-screen p-8">
             <div className="mx-auto max-w-7xl">
                 <header className="mb-8">
-                    <h1 className="text-3xl font-bold">
-                        Observability
+                    <h1 className="text-lg lg:text-2xl font-medium mb-6">
+                        VPS System Overview
                     </h1>
 
 
-                    <p className="mt-2 text-gray-500">
-                        VPS system overview
-                    </p>
+
+
                 </header>
 
 

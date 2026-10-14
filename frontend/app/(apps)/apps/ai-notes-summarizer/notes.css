@@ -7,14 +7,9 @@
 .container.notes h3,
 .container.notes h5,
 .container.notes h6 {
-    margin: 0 0 20px;
-    font-weight: 700;
-    line-height: 1.2;
 }
 
 .container.notes h1 {
-    font-size: 2.5rem;
-    margin-top: 15px;
 }
 
 .container.notes p {
@@ -22,8 +17,6 @@
 }
 
 .container.notes {
-    max-width: 800px;
-    margin: auto;
 }
 
 .container.notes .note-form {

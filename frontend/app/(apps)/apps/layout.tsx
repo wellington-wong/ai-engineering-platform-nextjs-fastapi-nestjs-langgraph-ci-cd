@@ -20,7 +20,7 @@ export default function AppsLayout({
     //{ href: '/apps', icon: Users, label: 'Apps' },
     { href: '/apps/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer' },
     { href: '/apps/ragchat', icon: BotMessageSquare, label: 'RAGChat' },
-    { href: '/apps/agent', icon: HatGlasses, label: 'AI Agent' },
+    { href: '/apps/ai-agent', icon: HatGlasses, label: 'AI Agent' },
 
     { href: '/apps/automation', icon: Workflow, label: 'Automation' },
     { href: '/apps/monitoring', icon: Activity, label: 'Monitoring' },
@@ -58,11 +58,26 @@ export default function AppsLayout({
           >
             <nav className="h-full overflow-y-auto p-4">
               {navItems.map((item) => (
-                  <Link key={item.href} href={item.href} passHref>
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={
+                      pathname === item.href || pathname.startsWith(`${item.href}/`)
+                        ? 'page'
+                        : undefined
+                    }
+                    passHref
+                  >
                     <Button
-                        variant={pathname === item.href ? 'secondary' : 'ghost'}
+                        variant={
+                          pathname === item.href || pathname.startsWith(`${item.href}/`)
+                            ? 'secondary'
+                            : 'ghost'
+                        }
                         className={`shadow-none my-1 w-full justify-start cursor-pointer ${
-                            pathname === item.href ? 'bg-gray-100' : ''
+                          pathname === item.href || pathname.startsWith(`${item.href}/`)
+                            ? 'bg-gray-100 font-bold text-gray-950'
+                            : ''
                         }`}
                         onClick={() => setIsSidebarOpen(false)}
                     >
