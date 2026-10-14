@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Activity, BotMessageSquare, HatGlasses, Menu, NotebookPen, Workflow } from 'lucide-react';
-import Header from '../../(dashboard)/layout';
+import { Header } from '../../(dashboard)/layout';
 
 export default function AppsLayout({
                                           children
@@ -28,9 +28,10 @@ export default function AppsLayout({
   ];
 
   return (
-    <Header>
+    <>
+      <Header saasMode={false} />
       <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
-        {/* Mobile header */}
+
         <div className="lg:hidden flex items-center justify-between bg-white border-b border-gray-200 p-4">
 
 
@@ -96,6 +97,6 @@ export default function AppsLayout({
           <main className="flex-1 overflow-y-auto p-0 lg:p-4">{children}</main>
         </div>
       </div>
-    </Header>
+    </>
   );
 }
