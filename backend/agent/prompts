@@ -21,3 +21,21 @@ API. Implement endpoints to create a session, retrieve its state, submit answers
 Reliability. Reuse existing persistence if available. Handle LLM failures without losing accepted answers. Prevent completed sessions from accepting new answers and avoid duplicate or concurrent submissions advancing the workflow twice. Document any persistence or authentication limitations.
 
 Tests. Add focused pytest tests with mocked LLM calls for session creation, dynamic steps, answer validation, workflow completion, state preservation, and failure handling.
+
+
+===============================================================
+
+
+Review and fix the existing discovery workflow without rewriting the architecture.
+
+Normalize field IDs when storing answers. If a field ID is step_5.user_feedback, store it as step_5.user_feedback, not step_5.step_5.user_feedback. Apply the same rule to all steps and keep answer validation working.
+
+Keep explicit user-provided facts separate from AI-generated inferences. Populate ai_inferences when the model makes assumptions, and distinguish confirmed requirements from suggested requirements in the final overview.
+
+Ensure the assumptions section contains only unconfirmed assumptions, and open_questions contains unresolved decisions. Do not present inferred details as confirmed user requirements.
+
+Avoid questions that assume the person completing the form is elderly. Ask about the intended users or beneficiaries instead.
+
+Add or update tests for field-ID normalization, answer persistence, completion after six steps, and fact-versus-inference separation.
+
+Keep existing API endpoints and response formats compatible where possible. Run the tests and summarize the files changed and results.

@@ -1,0 +1,57 @@
+I want to integrate my existing FastAPI Adaptive Project-Discovery Agent into my existing Next.js application.
+
+Existing frontend page:
+./app/(apps)/apps/ai-agent/page.tsx
+
+First, inspect the existing project. Check the Next.js version, routing conventions, styling system, shared layouts, and the current contents of the specified page.
+
+I already have a separate FastAPI backend with these endpoints:
+
+GET /health
+
+POST /sessions
+
+GET /sessions/{session_id}
+
+POST /sessions/{session_id}/answers
+
+GET /sessions/{session_id}/overview
+
+Inspect the actual backend request and response schemas if the backend repository is accessible. Do not invent API fields or change the backend contract.
+
+Integration requirements:
+
+Use the existing ./app/(apps)/apps/ai-agent/page.tsx as the main entry point. Do not create a duplicate page or a new frontend project.
+
+Preserve the existing application layout, shared components, styling conventions, and unrelated functionality.
+
+Build a project-description form that creates a discovery session.
+
+Render questions dynamically from the backend's current_step.fields, supporting text, textarea, number, select, radio, and checkbox inputs.
+
+Show progress based on step_index and max_steps. Preserve answers when navigating backward, if supported by the existing API.
+
+Submit answers using the exact field IDs and request schema expected by the backend.
+
+Display the final overview dynamically, including sections such as goals, scope, requirements, confirmed requirements, suggested requirements, risks, assumptions, and open questions when available.
+
+Add loading states, validation, API error handling, and an option to start a new project.
+
+Configure the backend base URL through an environment variable, such as NEXT_PUBLIC_API_BASE_URL.
+
+Check whether FastAPI CORS configuration is needed and report any required backend changes.
+
+Constraints:
+
+Reuse existing dependencies and UI components wherever practical.
+
+Do not introduce Vite, another frontend application, authentication, or unrelated features.
+
+Keep API calls in a reusable module rather than embedding all request logic in the page.
+
+Follow the existing Next.js App Router conventions and client-component requirements.
+
+Do not modify unrelated files.
+
+Workflow:
+First report the current page structure, the files you propose to create or modify, and any missing backend information. Then implement the integration, run the available checks, and summarize the changes and any manual setup required.

@@ -25,7 +25,8 @@ def fake_step(state):
 def fake_overview(state):
     return main.ProjectOverview(title="Example", sections=main.OverviewSection(
         summary="Summary", goals=["Goal"], problem="Problem", audience=["Users"], solution="Solution",
-        scope=["Scope"], requirements=["Requirement"], risks=["Risk"], assumptions=["Assumption"], open_questions=[],
+        scope=["Scope"], requirements=["Confirmed requirement"], confirmed_requirements=["Confirmed requirement"],
+        suggested_requirements=["Suggested requirement"], risks=["Risk"], assumptions=["Unconfirmed assumption"], open_questions=["Unresolved decision"],
     ))
 
 
@@ -79,6 +80,52 @@ def test_answer_type_validation():
     for invalid in ({"count": True}, {"date": "15/10/2026"}, {"tags": ["unknown"]}, {"tags": "a"}):
         with pytest.raises(Exception):
             main._validate_answers(step, invalid)
+
+
+def test_scoped_field_ids_are_not_double_prefixed(client, monkeypatch):
+    install_fakes(monkeypatch)
+    session_id = client.post("/sessions", json={"project_description": "A project"}).json()["id"]
+    # Use a field ID that already carries its step namespace.
+    session = main._get_session(session_id)
+    session.state["step_index"] = 4
+    session.state["current_step"] = main.FormStep(title="Fifth", description="Details", fields=[
+        main.FormField(id="step_5.user_feedback", label="Feedback", type="text", required=True),
+    ])
+    response = client.post(f"/sessions/{session_id}/answers", json={"step_index": 4, "answers": {"step_5.user_feedback": "Useful feedback"}})
+    assert response.status_code == 200
+    facts = client.get(f"/sessions/{session_id}").json()["user_facts"]
+    assert facts["step_5.user_feedback"] == "Useful feedback"
+    assert "step_5.step_5.user_feedback" not in facts
+    history_answers = response.json()["interview_history"][-1]["answers"]
+    assert history_answers["step_5.user_feedback"] == "Useful feedback"
+
+
+def test_generated_assumptions_are_separate_from_user_facts(monkeypatch):
+    monkeypatch.setattr(main, "_generate_step", lambda state: main.GeneratedFormStep(
+        title="Audience", description="Intended users", fields=[main.FormField(id="audience", label="Who benefits?", type="text")],
+        ai_inferences=["The project may serve local volunteers."],
+    ))
+    state = {
+        "project_description": "A community garden", "step_index": 0, "max_steps": 6,
+        "user_facts": {"step_1.goal": "Grow food together"}, "ai_inferences": [], "unanswered_questions": [],
+        "interview_history": [], "current_step": None, "final_overview": None, "task": "step",
+    }
+    result = main._run(state)
+    assert result["user_facts"] == {"step_1.goal": "Grow food together"}
+    assert result["ai_inferences"] == ["The project may serve local volunteers."]
+    assert "elderly" not in result["current_step"].model_dump_json().lower()
+
+
+def test_overview_keeps_confirmed_and_suggested_requirements_distinct(client, monkeypatch):
+    install_fakes(monkeypatch)
+    session_id = client.post("/sessions", json={"project_description": "A project"}).json()["id"]
+    for index in range(6):
+        response = client.post(f"/sessions/{session_id}/answers", json={"step_index": index, "answers": {"purpose": f"Answer {index}", "format": "web"}})
+    sections = response.json()["final_overview"]["sections"]
+    assert sections["confirmed_requirements"] == ["Confirmed requirement"]
+    assert sections["suggested_requirements"] == ["Suggested requirement"]
+    assert sections["assumptions"] == ["Unconfirmed assumption"]
+    assert sections["open_questions"] == ["Unresolved decision"]
 
 
 def test_generation_failure_preserves_answers_and_same_retry_recovers(client, monkeypatch):

@@ -4,16 +4,20 @@ from __future__ import annotations
 
 import argparse
 import os
+import re
 import threading
 import uuid
 from datetime import date
 from typing import Any, Literal, TypedDict
 
 from fastapi import FastAPI, HTTPException
+
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_openai import ChatOpenAI
 from langgraph.graph import END, START, StateGraph
 from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+from fastapi.middleware.cors import CORSMiddleware
 
 MAX_STEPS = 6
 
@@ -43,6 +47,11 @@ class FormStep(BaseModel):
     fields: list[FormField] = Field(min_length=1, max_length=12)
 
 
+class GeneratedFormStep(FormStep):
+    """LLM result with explicitly marked, unconfirmed inferences."""
+    ai_inferences: list[str] = Field(default_factory=list)
+
+
 class OverviewSection(BaseModel):
     model_config = ConfigDict(extra="forbid")
     summary: str
@@ -52,6 +61,8 @@ class OverviewSection(BaseModel):
     solution: str
     scope: list[str]
     requirements: list[str]
+    confirmed_requirements: list[str] = Field(default_factory=list)
+    suggested_requirements: list[str] = Field(default_factory=list)
     risks: list[str]
     assumptions: list[str]
     open_questions: list[str]
@@ -113,19 +124,19 @@ SESSIONS_LOCK = threading.Lock()
 app = FastAPI(title="Adaptive Project Discovery Agent")
 
 
-def _llm():
+def _llm(schema: type[BaseModel] = FormStep):
     if not os.getenv("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is not configured")
-    return ChatOpenAI(model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"), temperature=0).with_structured_output(FormStep)
+    return ChatOpenAI(model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"), temperature=0).with_structured_output(schema)
 
 
-def _generate_step(state: InterviewState) -> FormStep:
+def _generate_step(state: InterviewState) -> GeneratedFormStep:
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "You conduct an adaptive project discovery interview. Return one useful form step with 1-8 fields. Be topic agnostic, use stable machine IDs, and only ask questions that add useful context. For select, radio, and checkbox fields, include choices. Do not repeat answered questions. Treat user answers as facts and label uncertain deductions as assumptions."),
+        ("system", "You conduct an adaptive project discovery interview. Return one useful form step with 1-8 fields. Be topic agnostic, use stable machine IDs, and only ask questions that add useful context. For select, radio, and checkbox fields, include choices. Do not repeat answered questions. Treat only explicit user statements as facts. Put any plausible but unconfirmed deductions in ai_inferences. Ask about the intended users or beneficiaries; never assume the person completing the form is elderly or belongs to any demographic group unless the user explicitly said so."),
         ("human", "Project description: {description}\nStep: {step} of {maximum}\nKnown user facts: {facts}\nPrior interview: {history}\nInferences so far: {inferences}\nOpen questions: {open_questions}"),
     ])
     # Constructing with_structured_output at call time keeps model setup replaceable in tests.
-    model = _llm()
+    model = _llm(GeneratedFormStep)
     return (prompt | model).invoke({
         "description": state["project_description"], "step": state["step_index"] + 1,
         "maximum": state["max_steps"], "facts": state["user_facts"],
@@ -139,21 +150,23 @@ def _generate_overview(state: InterviewState) -> ProjectOverview:
         raise RuntimeError("OPENAI_API_KEY is not configured")
     model = ChatOpenAI(model=os.getenv("OPENAI_MODEL", "gpt-4o-mini"), temperature=0).with_structured_output(ProjectOverview)
     prompt = ChatPromptTemplate.from_messages([
-        ("system", "Create a comprehensive, topic-agnostic project overview using the supplied structure. Adapt each section to the topic. Explicit user facts are authoritative. Put unverified deductions only in assumptions and list unresolved items as open questions. Do not invent facts."),
-        ("human", "Project: {description}\nExplicit user facts: {facts}\nAI inferences: {inferences}\nInterview history: {history}"),
+        ("system", "Create a comprehensive, topic-agnostic project overview using the supplied structure. Adapt each section to the topic. Explicit user facts and requirements are authoritative. Put only requirements explicitly stated or confirmed by the user in requirements and confirmed_requirements. Put potential recommendations that the user has not confirmed only in suggested_requirements. Put only unconfirmed assumptions in assumptions; never repeat a confirmed fact or requirement there. List unresolved decisions in open_questions. Do not invent facts or portray inferences as confirmed."),
+        ("human", "Project: {description}\nExplicit user facts: {facts}\nAI-generated inferences (unconfirmed): {inferences}\nInterview history: {history}\nUnanswered questions: {open_questions}"),
     ])
-    return (prompt | model).invoke({"description": state["project_description"], "facts": state["user_facts"], "inferences": state["ai_inferences"], "history": state["interview_history"]})
+    return (prompt | model).invoke({"description": state["project_description"], "facts": state["user_facts"], "inferences": state["ai_inferences"], "history": state["interview_history"], "open_questions": state["unanswered_questions"]})
 
 
 def build_graph():
     """Build the LangGraph node used to generate one step or the overview."""
     def generate(state: InterviewState) -> dict[str, Any]:
         if state["task"] == "step":
-            step = _generate_step(state)
+            generated = _generate_step(state)
+            step = FormStep(title=generated.title, description=generated.description, fields=generated.fields)
             ids = [field.id for field in step.fields]
             if len(ids) != len(set(ids)):
                 raise ValueError("Generated form field IDs must be unique")
-            return {"current_step": step}
+            inferences = list(dict.fromkeys([*state["ai_inferences"], *getattr(generated, "ai_inferences", [])]))
+            return {"current_step": step, "ai_inferences": inferences}
         return {"final_overview": _generate_overview(state)}
 
     graph = StateGraph(InterviewState)
@@ -200,6 +213,13 @@ def _validate_answers(step: FormStep, answers: dict[str, Any]) -> None:
             valid = isinstance(value, list) and field.choices is not None and all(isinstance(v, str) and v in field.choices for v in value) and len(value) == len(set(value))
         if not valid:
             raise HTTPException(status_code=422, detail=f"Invalid value for field '{field_id}' ({field.type})")
+
+
+def _fact_key(step_number: int, field_id: str) -> str:
+    """Prefix unqualified IDs, but do not double-prefix IDs already scoped to a step."""
+    if re.match(r"^step_\d+\.", field_id):
+        return field_id
+    return f"step_{step_number}.{field_id}"
 
 
 def _http_generation_error(exc: Exception) -> HTTPException:
@@ -262,9 +282,12 @@ def submit_answers(session_id: str, request: SubmitAnswersRequest) -> SessionRes
             if state["current_step"] is None:
                 raise HTTPException(status_code=409, detail="No current step is available")
             _validate_answers(state["current_step"], request.answers)
+            stored_answers = {_fact_key(expected + 1, key): value for key, value in request.answers.items()}
+            if len(stored_answers) != len(request.answers):
+                raise HTTPException(status_code=422, detail="Field IDs collide after step normalization")
             session.accepted[expected] = dict(request.answers)
-            state["user_facts"] = {**state["user_facts"], **{f"step_{expected + 1}.{k}": v for k, v in request.answers.items()}}
-            state["interview_history"] = [*state["interview_history"], {"step_index": expected, "title": state["current_step"].title, "answers": dict(request.answers)}]
+            state["user_facts"] = {**state["user_facts"], **stored_answers}
+            state["interview_history"] = [*state["interview_history"], {"step_index": expected, "title": state["current_step"].title, "answers": stored_answers}]
             state["unanswered_questions"] = [f.label for f in state["current_step"].fields if f.id not in request.answers]
         next_index = expected + 1
         candidate = dict(state)
@@ -293,6 +316,16 @@ def get_overview(session_id: str) -> ProjectOverview:
             raise HTTPException(status_code=409, detail="Session is not complete")
         return session.state["final_overview"]
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the adaptive project discovery API.")
