@@ -25,7 +25,7 @@ export type SessionResponse = {
   final_overview: Overview | null;
 };
 
-const apiBaseUrl = (process.env.NEXT_PUBLIC_API_ ?? '').replace(/\/$/, '');
+const apiBaseUrl = (process.env.NEXT_PUBLIC_API ?? '').replace(/\/$/, '');
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   if (!apiBaseUrl) throw new Error('Set NEXT_PUBLIC_API to the FastAPI server URL.');
