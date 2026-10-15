@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Activity, BotMessageSquare, HatGlasses, Menu, NotebookPen, Workflow } from 'lucide-react';
+import { Activity, ArrowUpRight, BotMessageSquare, HatGlasses, Menu, NotebookPen, Workflow } from 'lucide-react';
 import { Header } from '../../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -18,12 +18,12 @@ export default function AppsLayout({
 
   const navItems = [
     //{ href: '/apps', icon: Users, label: 'Apps' },
+    { href: '/apps/ai-agent', icon: HatGlasses, label: 'AI Agent' },
     { href: '/apps/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer' },
     { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAGChat', target: '_blank' },
-    { href: '/apps/ai-agent', icon: HatGlasses, label: 'AI Agent' },
 
     { href: '/apps/automation', icon: Workflow, label: 'Automation' },
-    { href: '/apps/monitoring', icon: Activity, label: 'Monitoring' },
+    { href: '/apps/ml-monitoring', icon: Activity, label: 'ML Monitoring' },
 
   ];
 
@@ -85,8 +85,8 @@ export default function AppsLayout({
                         }`}
                         onClick={() => setIsSidebarOpen(false)}
                     >
-                      <item.icon className="h-4 w-4" />
-                      {item.label}
+                      <item.icon className="h-4 w-4" />{item.targe&&<ArrowUpRight />}
+                      {item.label}{item.target&&<ArrowUpRight />}
                     </Button>
                   </Link>
               ))}

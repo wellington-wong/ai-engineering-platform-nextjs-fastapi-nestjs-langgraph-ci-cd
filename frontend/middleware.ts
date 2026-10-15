@@ -50,20 +50,17 @@ export async function middleware(request: NextRequest) {
 
   const hostname = request.headers.get('host') || ''
 
-  if (hostname.startsWith('monitoring.')) {
+  if (hostname.startsWith('monitoring.') || request.nextUrl.pathname === '/observability') {
 
 
 
-    if (request.nextUrl.pathname === '/observability') {
-      return res
-    }
-
-    return NextResponse.rewrite(new URL('/observability', request.url))
+    return NextResponse.rewrite(new URL('/apps/ml-monitoring', request.url))
   }
 
   return res;
 }
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+
   runtime: 'nodejs'
 };
