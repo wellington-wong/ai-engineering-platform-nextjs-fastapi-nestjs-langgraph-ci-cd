@@ -85,7 +85,7 @@ export default function AppsLayout({
                         }`}
                         onClick={() => setIsSidebarOpen(false)}
                     >
-                      <item.icon className="h-4 w-4" />{item.targe&&<ArrowUpRight />}
+                      <item.icon className="h-4 w-4" />
                       {item.label}{item.target&&<ArrowUpRight />}
                     </Button>
                   </Link>
