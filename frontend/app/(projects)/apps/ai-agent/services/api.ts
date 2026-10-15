@@ -25,10 +25,10 @@ export type SessionResponse = {
   final_overview: Overview | null;
 };
 
-const apiBaseUrl = (process.env.NEXT_PUBLIC_API_BASE_URL ?? '').replace(/\/$/, '');
+const apiBaseUrl = (process.env.NEXT_PUBLIC_API_ ?? '').replace(/\/$/, '');
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  if (!apiBaseUrl) throw new Error('Set NEXT_PUBLIC_API_BASE_URL to the FastAPI server URL.');
+  if (!apiBaseUrl) throw new Error('Set NEXT_PUBLIC_API to the FastAPI server URL.');
   let response: Response;
   try {
     response = await fetch(`${apiBaseUrl}${path}`, {
