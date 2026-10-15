@@ -1,0 +1,23 @@
+Implement an Adaptive Project-Discovery Agent backend in this existing repository using the configured FastAPI, LangGraph, and LangChain setup.
+
+Goal
+
+Build an agent that interviews users about any project topic through approximately six adaptive form steps. An LLM generates the questions and fields for each step based on the project description and previous answers. At the end, it produces a comprehensive project overview.
+
+Requirements
+
+Inspect first. Understand the existing project structure, configuration, entry point, and persistence before changing anything. Reuse existing components and dependencies.
+
+Dynamic forms. Use Pydantic schemas for LLM-generated form steps. Support text, textarea, number, select, radio, checkbox, and date fields. Each step includes a title, description, and fields with IDs, labels, types, required flags, and optional choices or helper text. Never hardcode topic-specific questions or execute generated HTML or code.
+
+LangGraph workflow. Maintain typed state containing the project description, step index, maximum steps, user facts, AI inferences, unanswered questions, complete interview history, current step, and final overview. Generate one step per request, adapt subsequent questions to previous answers, and enforce the six-step limit in application code.
+
+Answer validation. Validate submitted answers against the exact current schema, including required fields, types, and choice options. Preserve answers by step and distinguish explicit user facts from AI-generated assumptions.
+
+Final overview. Generate a topic-agnostic, structured project overview covering relevant goals, problem, audience, solution, scope, requirements, risks, assumptions, and open questions. Adapt sections to the topic and never present unverified inferences as facts.
+
+API. Implement endpoints to create a session, retrieve its state, submit answers to a step, and retrieve the completed overview. Return clear Pydantic request/response schemas and appropriate HTTP errors.
+
+Reliability. Reuse existing persistence if available. Handle LLM failures without losing accepted answers. Prevent completed sessions from accepting new answers and avoid duplicate or concurrent submissions advancing the workflow twice. Document any persistence or authentication limitations.
+
+Tests. Add focused pytest tests with mocked LLM calls for session creation, dynamic steps, answer validation, workflow completion, state preservation, and failure handling.
