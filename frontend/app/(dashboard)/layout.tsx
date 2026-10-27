@@ -90,6 +90,7 @@ export function Header({ saasMode } : {saasMode: boolean}) {
         <div className="flex items-center space-x-4">
           <Suspense fallback={<div className="h-9" />}>
             { saasMode && <UserMenu /> }
+            <Image src="/images/dev-photo.png" className="rounded-full scale-160 size-[27.5px]" width="70" height="70" alt="Wellington Codes" />
           </Suspense>
         </div>
       </div>

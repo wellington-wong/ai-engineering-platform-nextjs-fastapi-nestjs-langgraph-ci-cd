@@ -70,7 +70,7 @@ export default function DiscoveryAgent() {
   const progress = session ? Math.min(100, Math.round((session.step_index / session.max_steps) * 100)) : 0;
   const setValue = (id: string, value: Values[string]) => setAnswers((existing) => ({ ...existing, [id]: value }));
 
-  return <div className="mx-auto max-w-4xl p-6 lg:p-8">
+  return <div className="mx-auto max-w-7xl p-6 lg:p-8">
 
     <header className="mb-8">
       <h1 className="text-lg lg:text-2xl font-medium mb-6">AI Agent</h1>
