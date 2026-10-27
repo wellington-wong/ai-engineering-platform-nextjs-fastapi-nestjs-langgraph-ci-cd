@@ -8,13 +8,13 @@ export async function middleware(request: NextRequest) {
   const {pathname} = request.nextUrl;
   const sessionCookie = request.cookies.get('session');
   const isProtectedRoute = pathname.startsWith(protectedRoutes);
-
+  const hostname = request.headers.get('host') || ''
   if (isProtectedRoute && !sessionCookie) {
     return NextResponse.redirect(new URL('/sign-in', request.url));
 
 
 
-  } else if (request.nextUrl.pathname === '/'){
+  } else if (request.nextUrl.pathname === '/' && hostname.startsWith('saas-next.')){
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
@@ -48,7 +48,6 @@ export async function middleware(request: NextRequest) {
 
 
 
-  const hostname = request.headers.get('host') || ''
 
   if (hostname.startsWith('monitoring.') || request.nextUrl.pathname === '/observability') {
 
