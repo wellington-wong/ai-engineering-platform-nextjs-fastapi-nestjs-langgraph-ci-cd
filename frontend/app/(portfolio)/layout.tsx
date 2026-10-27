@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Activity, ArrowUpRight, BotMessageSquare, BriefcaseBusiness, HatGlasses, Menu, NotebookPen, Workflow, UserRound, Mail, Sparkles } from 'lucide-react';
+import { Activity, ArrowUpRight, BotMessageSquare, BriefcaseBusiness, HatGlasses, House, Menu, NotebookPen, Workflow, UserRound, Mail, Sparkles } from 'lucide-react';
 import { Header } from '../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -17,7 +17,7 @@ export default function AppsLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    { href: '/', icon: Sparkles, label: 'Home' },
+    { href: '/', icon: House, label: 'Home' },
     { href: '/expertise', icon: Sparkles, label: 'Expertise' },
     { href: '/projects', icon: BriefcaseBusiness, label: 'Projects' },
     { href: '/projects/ai-agent', icon: HatGlasses, label: 'AI Agent', nested: true },
