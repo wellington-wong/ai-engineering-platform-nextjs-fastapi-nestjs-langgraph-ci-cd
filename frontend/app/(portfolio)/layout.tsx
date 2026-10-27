@@ -28,7 +28,7 @@ export default function AppsLayout({
     { href: '/projects/ai-notes-summarizer', icon: ChevronRight, label: 'AI Notes Summarizer', nested: true },
     { href: '/projects/saas-platforms', icon: AppWindow, label: 'SaaS Platforms' },
     { href: 'https://referrals.wellington.codes', icon: ChevronRight, label: 'Laravel', target: '_blank', nested: true },
-    { href: 'https://saas.wellington.codes', icon: ChevronRight, label: 'SaaS Platforms', target: '_blank', nested: true },
+    { href: 'https://saas.wellington.codes', icon: ChevronRight, label: 'Nuxt + .NET', target: '_blank', nested: true },
     { href: '/contact-me', icon: Mail, label: 'Contact me' },
   ];
 
