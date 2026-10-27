@@ -4,7 +4,7 @@
 
 
 import type { Metadata } from 'next';
-import ObservabilityPage from '@/app/projects/ml-monitoring/observability'
+import ObservabilityPage from '@/app/(portfolio)/projects/ml-monitoring/observability'
 
 export const metadata: Metadata = {
     title: 'VPS Observability',

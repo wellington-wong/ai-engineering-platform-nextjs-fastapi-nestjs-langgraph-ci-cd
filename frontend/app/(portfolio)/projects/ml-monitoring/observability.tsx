@@ -1,11 +1,11 @@
 'use client';
-import MetricCard from '@/app/projects/ml-monitoring/components/MetricCard';
+import MetricCard from '@/app/(portfolio)/projects/ml-monitoring/components/MetricCard';
 
 
 
 import { useEffect, useState } from 'react';
-import SystemMetricsChart from '@/app/projects/ml-monitoring/components/SystemMetricsChart';
-import ContainerList from '@/app/projects/ml-monitoring/components/ContainerList';
+import SystemMetricsChart from '@/app/(portfolio)/projects/ml-monitoring/components/SystemMetricsChart';
+import ContainerList from '@/app/(portfolio)/projects/ml-monitoring/components/ContainerList';
 
 type SystemMetric = {
     timestamp: string;
