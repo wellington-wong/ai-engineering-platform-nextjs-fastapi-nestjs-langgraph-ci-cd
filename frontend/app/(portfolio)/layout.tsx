@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Activity, ArrowUpRight, BotMessageSquare, HatGlasses, Menu, NotebookPen, Workflow } from 'lucide-react';
+import { Activity, ArrowUpRight, BotMessageSquare, BriefcaseBusiness, HatGlasses, Menu, NotebookPen, Workflow, UserRound, Mail, Sparkles } from 'lucide-react';
 import { Header } from '../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -17,14 +17,15 @@ export default function AppsLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
-    //{ href: '/apps', icon: Users, label: 'Apps' },
-    { href: '/projects/ai-agent', icon: HatGlasses, label: 'AI Agent' },
-    { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAGChat', target: '_blank' },
-
-    { href: '/projects/automation', icon: Workflow, label: 'Automation' },
-    { href: '/projects/ml-monitoring', icon: Activity, label: 'ML Monitoring' },
-    { href: '/projects/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer' },
-
+    { href: '/expertise', icon: Sparkles, label: 'Expertise' },
+    { href: '/projects', icon: BriefcaseBusiness, label: 'Projects' },
+    { href: '/projects/ai-agent', icon: HatGlasses, label: 'AI Agent', nested: true },
+    { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAGChat', target: '_blank', nested: true },
+    { href: '/projects/automation', icon: Workflow, label: 'Automation', nested: true },
+    { href: '/projects/ml-monitoring', icon: Activity, label: 'ML Monitoring', nested: true },
+    { href: '/projects/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer', nested: true },
+    { href: '/about', icon: UserRound, label: 'About' },
+    { href: '/contact-me', icon: Mail, label: 'Contact me' },
   ];
 
   return (
@@ -80,9 +81,9 @@ export default function AppsLayout({
                         }
                         className={`shadow-none my-1 w-full justify-start cursor-pointer ${
                           pathname === item.href || pathname.startsWith(`${item.href}/`)
-                            ? 'bg-gray-100 font-bold text-gray-950'
+                          ? 'bg-gray-100 font-bold text-gray-950'
                             : ''
-                        }`}
+                        } ${item.nested ? 'ml-4 w-[calc(100%-1rem)] text-sm' : ''}`}
                         onClick={() => setIsSidebarOpen(false)}
                     >
                       <item.icon className="h-4 w-4" />
