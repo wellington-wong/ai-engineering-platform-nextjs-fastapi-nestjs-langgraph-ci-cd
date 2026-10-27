@@ -323,7 +323,7 @@ app.add_middleware(
         "http://127.0.0.1:3000",
 
 
-        "https://projects.wellington.codes",
+        "https://wellington.codes",
     ],
     allow_credentials=True,
     allow_methods=["*"],

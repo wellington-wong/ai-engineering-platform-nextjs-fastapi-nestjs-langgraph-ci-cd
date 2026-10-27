@@ -26,7 +26,7 @@ export default function AppsLayout({
     { href: '/projects/automation', icon: ChevronRight, label: 'Automation', nested: true },
     { href: '/projects/ml-monitoring', icon: ChevronRight, label: 'ML Monitoring', nested: true },
     { href: '/projects/ai-notes-summarizer', icon: ChevronRight, label: 'AI Notes Summarizer', nested: true },
-    { href: '/about', icon: UserRound, label: 'About' },
+    { href: '/projects/saas', icon: ChevronRight, label: 'SaaS Platforms', nested: true },
     { href: '/contact-me', icon: Mail, label: 'Contact me' },
   ];
 
