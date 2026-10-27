@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Activity, ArrowUpRight, BotMessageSquare, BriefcaseBusiness, HatGlasses, House, Menu, NotebookPen, Workflow, UserRound, Mail, Sparkles } from 'lucide-react';
+import { Activity, ArrowUpRight, BotMessageSquare, BriefcaseBusiness, ChevronRight, HatGlasses, House, Menu, NotebookPen, Workflow, UserRound, Mail, Sparkles } from 'lucide-react';
 import { Header } from '../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -20,12 +20,12 @@ export default function AppsLayout({
     { href: '/', icon: House, label: 'Home' },
     { href: '/expertise', icon: Sparkles, label: 'Expertise' },
     { href: '/projects', icon: BriefcaseBusiness, label: 'Projects' },
-    { href: '/projects/ai-agent', icon: HatGlasses, label: 'AI Agent', nested: true },
+    { href: '/projects/ai-agent', icon: ChevronRight, label: 'AI Agent', nested: true },
 
-    { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAG Chat', target: '_blank', nested: true },
-    { href: '/projects/automation', icon: Workflow, label: 'Automation', nested: true },
-    { href: '/projects/ml-monitoring', icon: Activity, label: 'ML Monitoring', nested: true },
-    { href: '/projects/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer', nested: true },
+    { href: 'https://ragchat.wellington.codes', icon: ChevronRight, label: 'RAG Chat', target: '_blank', nested: true },
+    { href: '/projects/automation', icon: ChevronRight, label: 'Automation', nested: true },
+    { href: '/projects/ml-monitoring', icon: ChevronRight, label: 'ML Monitoring', nested: true },
+    { href: '/projects/ai-notes-summarizer', icon: ChevronRight, label: 'AI Notes Summarizer', nested: true },
     { href: '/about', icon: UserRound, label: 'About' },
     { href: '/contact-me', icon: Mail, label: 'Contact me' },
   ];
@@ -88,7 +88,7 @@ export default function AppsLayout({
                         } ${item.nested ? 'ml-4 w-[calc(100%-1rem)] text-sm' : ''}`}
                         onClick={() => setIsSidebarOpen(false)}
                     >
-                      <item.icon className="h-4 w-4" />
+                      <item.icon className={"h-3 w-3 " + (item.nested?'opacity-15':'')} />
                       {item.label}{item.target&&<ArrowUpRight />}
                     </Button>
                   </Link>
