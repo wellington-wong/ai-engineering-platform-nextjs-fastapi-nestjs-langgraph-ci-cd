@@ -71,8 +71,12 @@ export default function DiscoveryAgent() {
   const setValue = (id: string, value: Values[string]) => setAnswers((existing) => ({ ...existing, [id]: value }));
 
   return <div className="mx-auto max-w-4xl p-6 lg:p-8">
-    <header className="mb-8"><h1 className="mb-3 text-lg font-medium lg:text-2xl">AI Agent</h1><p className="text-gray-500">Describe your project and answer a few adaptive questions to build a project overview.</p></header>
-    <div className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
+
+    <header className="mb-8">
+      <h1 className="text-lg lg:text-2xl font-medium mb-6">AI Agent</h1>
+      <p className="mt-2 text-gray-500">Describe your project and answer a few adaptive questions to build a project overview.</p>
+    </header>
+    <section className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
       {overview ? <><OverviewSections overview={overview} /><Button type="button" onClick={startNew} className="mt-8">Start a new project</Button></> : !session ? <form onSubmit={handleCreate} className="space-y-5">
         <div><Label htmlFor="project-description" className="mb-2 block text-sm font-medium">What project would you like to explore?</Label><textarea id="project-description" value={projectDescription} onChange={(event) => setProjectDescription(event.target.value)} required maxLength={10000} rows={6} placeholder="Describe the project, the problem it addresses, and anything you already know." className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500" /><p className="mt-1 text-xs text-gray-500">Up to 10,000 characters.</p></div>
         {error && <p role="alert" className="text-sm text-red-600">{error}</p>}<Button type="submit" disabled={pending || !projectDescription.trim()}>{pending ? 'Starting project…' : 'Start discovery'}</Button>
@@ -82,6 +86,6 @@ export default function DiscoveryAgent() {
           {error && <p role="alert" className="text-sm text-red-600">{error}</p>}<div className="flex flex-wrap gap-3 pt-2"><Button type="submit" disabled={pending}>{pending ? 'Saving…' : 'Continue'}</Button><Button type="button" variant="outline" onClick={startNew} disabled={pending}>Start a new project</Button></div>
         </form></> : <p role="status" className="text-sm text-gray-600">Preparing your next question…</p>}
       </>}
-    </div>
+    </section>
   </div>;
 }
