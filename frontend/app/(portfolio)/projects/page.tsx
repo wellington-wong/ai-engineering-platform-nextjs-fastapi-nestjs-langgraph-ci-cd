@@ -11,6 +11,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <div className="mx-auto max-w-5xl p-6 lg:p-8">
+
       <header className="mb-8">
         <p className="mb-2 text-sm font-medium text-gray-500">Selected work</p>
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950">Projects</h1>

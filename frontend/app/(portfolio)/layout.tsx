@@ -17,10 +17,12 @@ export default function AppsLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const navItems = [
+    { href: '/', icon: Sparkles, label: 'Home' },
     { href: '/expertise', icon: Sparkles, label: 'Expertise' },
     { href: '/projects', icon: BriefcaseBusiness, label: 'Projects' },
     { href: '/projects/ai-agent', icon: HatGlasses, label: 'AI Agent', nested: true },
-    { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAGChat', target: '_blank', nested: true },
+
+    { href: 'https://ragchat.wellington.codes', icon: BotMessageSquare, label: 'RAG Chat', target: '_blank', nested: true },
     { href: '/projects/automation', icon: Workflow, label: 'Automation', nested: true },
     { href: '/projects/ml-monitoring', icon: Activity, label: 'ML Monitoring', nested: true },
     { href: '/projects/ai-notes-summarizer', icon: NotebookPen, label: 'AI Notes Summarizer', nested: true },
