@@ -54,7 +54,7 @@ export default function AppsLayout({
         <div className="flex flex-1 overflow-hidden h-full">
           {/* Sidebar */}
           <aside
-              className={`w-64 bg-white lg:bg-gray-50 border-r border-gray-200 lg:block ${
+              className={`w-64 bg-[#F5F2ED] lg:bg-[#F5F2ED] border-r border-gray-200 lg:block ${
                   isSidebarOpen ? 'block' : 'hidden'
               } lg:relative absolute inset-y-0 left-0 z-40 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
                   isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
@@ -83,7 +83,7 @@ export default function AppsLayout({
                         }
                         className={`shadow-none my-1 w-full justify-start cursor-pointer ${
                           pathname === item.href || pathname.startsWith(`${item.href}/`)
-                          ? 'bg-gray-100 font-bold text-gray-950'
+                          ? 'bg-[#F5F2ED] font-bold text-gray-950'
                             : ''
                         } ${item.nested ? 'ml-4 w-[calc(100%-1rem)] text-sm' : ''}`}
                         onClick={() => setIsSidebarOpen(false)}
