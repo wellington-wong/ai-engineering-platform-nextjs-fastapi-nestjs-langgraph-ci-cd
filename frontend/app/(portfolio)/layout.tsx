@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Activity, ArrowUpRight, BotMessageSquare, BriefcaseBusiness, ChevronRight, HatGlasses, House, Menu, NotebookPen, Workflow, UserRound, Mail, Sparkles } from 'lucide-react';
+import { Activity, AppWindow, ArrowUpRight, BriefcaseBusiness, ChevronRight, CodeXml, House, Menu, Mail } from 'lucide-react';
 import { Header } from '../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -18,7 +18,7 @@ export default function AppsLayout({
 
   const navItems = [
     { href: '/', icon: House, label: 'Home' },
-    { href: '/expertise', icon: Sparkles, label: 'Expertise' },
+    { href: '/expertise', icon: CodeXml, label: 'Expertise' },
     { href: '/projects', icon: BriefcaseBusiness, label: 'Projects' },
     { href: '/projects/ai-agent', icon: ChevronRight, label: 'AI Agent', nested: true },
 
@@ -26,7 +26,9 @@ export default function AppsLayout({
     { href: '/projects/automation', icon: ChevronRight, label: 'Automation', nested: true },
     { href: '/projects/ml-monitoring', icon: ChevronRight, label: 'ML Monitoring', nested: true },
     { href: '/projects/ai-notes-summarizer', icon: ChevronRight, label: 'AI Notes Summarizer', nested: true },
-    { href: '/projects/saas', icon: ChevronRight, label: 'SaaS Platforms', nested: true },
+    { href: '/projects/saas-platforms', icon: AppWindow, label: 'SaaS Platforms' },
+    { href: 'https://referrals.wellington.codes', icon: ChevronRight, label: 'Laravel', target: '_blank', nested: true },
+    { href: 'https://saas.wellington.codes', icon: ChevronRight, label: 'SaaS Platforms', target: '_blank', nested: true },
     { href: '/contact-me', icon: Mail, label: 'Contact me' },
   ];
 
