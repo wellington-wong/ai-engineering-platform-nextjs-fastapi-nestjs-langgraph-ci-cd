@@ -43,7 +43,7 @@ The repository also includes a separate RAG Chat link in the portfolio navigatio
 ## Technology
 
 - **Web:** Next.js, React, TypeScript, Tailwind CSS, shadcn-style UI components
-- **Agent:** Python 3.14 (per `pyproject.toml`), FastAPI, LangGraph, LangChain, OpenAI integration
+- **Agent:** Python 3.11 (per `pyproject.toml`), FastAPI, LangGraph, LangChain, OpenAI integration
 - **Notes:** Python 3.11 container, FastAPI, SQLAlchemy, PostgreSQL driver, OpenAI integration
 - **Monitoring:** Node.js 22 container, NestJS, Prisma, PostgreSQL, Dockerode
 - **Frontend data and billing:** Drizzle ORM, PostgreSQL, Stripe
@@ -92,7 +92,7 @@ If the combined script cannot resolve the notes environment in your setup, run t
 
 ### Discovery agent
 
-In `backend/agent/`, use Python 3.14 and install the declared project dependencies with [uv](https://docs.astral.sh/uv/):
+In `backend/agent/`, use Python 3.11 and install the declared project dependencies with [uv](https://docs.astral.sh/uv/):
 
 ```bash
 uv sync
