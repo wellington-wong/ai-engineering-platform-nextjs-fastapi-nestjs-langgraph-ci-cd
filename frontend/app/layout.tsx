@@ -8,10 +8,11 @@ import { SWRConfig } from 'swr';
 import Clarity from '@microsoft/clarity';
 
 export const metadata: Metadata = {
-  title: 'Wellington.codes SaaS Starter',
+  title: { default: 'Wellington Wong — Full-Stack Engineer | AI & Automation', template: "%s | Wellington.Codes" },
   description: 'Next.js + Vercel'
-};
 
+
+}
 export const viewport: Viewport = {
   maximumScale: 1
 };

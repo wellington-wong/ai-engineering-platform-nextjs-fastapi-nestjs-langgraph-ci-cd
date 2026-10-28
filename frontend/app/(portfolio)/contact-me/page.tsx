@@ -1,5 +1,10 @@
 import Link from 'next/link';
 import { ArrowUpRight, Mail } from 'lucide-react';
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Contact Me",
+};
 
 export default function ContactMePage() {
   return (
