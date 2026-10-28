@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ArrowRight, Mail } from 'lucide-react';
+import type { Metadata } from 'next';
 
 export default function HomePage() {
   return (

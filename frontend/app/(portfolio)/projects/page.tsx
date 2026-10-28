@@ -1,4 +1,9 @@
 import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'AI Projects',
+};
 
 const projects = [
   { href: '/projects/ai-agent', title: 'AI Agent', description: 'An assistant workflow for discovering and working with information.' },

@@ -1,4 +1,9 @@
 import { Activity, Bot, Workflow } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Expertise',
+};
 
 const areas = [
   {
