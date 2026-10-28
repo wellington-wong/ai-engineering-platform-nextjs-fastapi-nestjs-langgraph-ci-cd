@@ -19,7 +19,7 @@ export default function AppsLayout({
   const navItems = [
     { href: '/', icon: House, label: 'Home' },
     { href: '/expertise', icon: CodeXml, label: 'Expertise' },
-    { href: '/projects', icon: BriefcaseBusiness, label: 'Projects' },
+    { href: '/projects', icon: BriefcaseBusiness, label: 'AI Projects' },
     { href: '/projects/ai-agent', icon: ChevronRight, label: 'AI Agent', nested: true },
 
     { href: 'https://ragchat.wellington.codes', icon: ChevronRight, label: 'RAG Chat', target: '_blank', nested: true },
