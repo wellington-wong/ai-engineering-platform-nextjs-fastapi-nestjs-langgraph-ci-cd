@@ -13,7 +13,7 @@ export default function HomePage() {
         </p>
 
 
-        <p className="mt-3 max-w-2xl text-gray-600">
+        <p className="mt-3 text-gray-600">
           Expertise across React, Next.js, Angular, Node.js, FastAPI, .NET, Laravel, WordPress, and React Native, with experience in end-to-end product development, cloud deployment, and CI/CD. Experienced with Docker, AWS, Cloudflare, and Vercel, with a focus on performance, scalability, security, and maintainable solutions.
         </p>
       </header>
