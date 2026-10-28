@@ -1,8 +1,11 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Manrope } from 'next/font/google';
+
+
 import { getUser, getTeamForUser } from '@/lib/db/queries';
 import { SWRConfig } from 'swr';
+import Clarity from '@microsoft/clarity';
 
 export const metadata: Metadata = {
   title: 'Wellington.codes SaaS Starter',
@@ -20,6 +23,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
+  Clarity.init("wisod5y80f");
+
   return (
     <html
       lang="en"
