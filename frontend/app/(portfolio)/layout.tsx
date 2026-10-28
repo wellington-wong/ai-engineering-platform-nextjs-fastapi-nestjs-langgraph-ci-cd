@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
-import { Activity, AppWindow, ArrowUpRight, BriefcaseBusiness, ChevronRight, CodeXml, House, Menu, Mail } from 'lucide-react';
+import { AppWindow, ArrowUpRight, BriefcaseBusiness, ChevronRight, CodeXml, House, Mail, Menu } from 'lucide-react';
 import { Header } from '../(dashboard)/layout';
 
 export default function AppsLayout({
@@ -99,9 +99,28 @@ export default function AppsLayout({
           </aside>
 
           {/* Main content */}
-          <main className="flex-1 overflow-y-auto p-0 lg:p-4">{children}</main>
+          <main className="flex-1 overflow-y-auto p-0 pb-20 lg:p-4 lg:pb-20">{children}</main>
         </div>
       </div>
+      <footer className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-[#F5F2ED]/95 backdrop-blur-sm">
+        <nav aria-label="Contact and social links" className="mx-auto flex max-w-7xl items-center justify-end gap-2 px-3 py-2 sm:gap-5 sm:px-6">
+          <a href="https://www.linkedin.com/in/wellingtonwong/" target="_blank" rel="noreferrer" aria-label="LinkedIn" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
+            <img src="images/svg/linkedin.svg" alt="LinkedIn" className="h-5 w-5 opacity-25 hover:opacity-100" />
+          </a>
+          <a href="https://github.com/wellington-wong" target="_blank" rel="noreferrer" aria-label="GitHub" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
+            <img src="images/svg/github.svg" alt="Github" className="h-5 w-5 opacity-25 hover:opacity-100" />
+          </a>
+          <a href="mailto:wellingtonwong@gmail.com" aria-label="Email Wellington" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
+            <img src="images/svg/email.svg" alt="Email" className="h-5 w-5 opacity-25 hover:opacity-100" />
+          </a>
+          <a href="tel:+639497692556" aria-label="Call +63 949 769 2556" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
+            <img src="images/svg/phone.svg" alt="Phone" className="h-5 w-5 opacity-25 hover:opacity-100" />
+          </a>
+          <a href="https://drive.google.com/file/d/12sz5IGpZDo7ozgAgqRcqdHd8Msw3LBBh/view?usp=sharing" target="_blank" rel="noreferrer" aria-label="View resume" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
+            <img src="images/svg/pdf.svg" alt="Resume" className="h-5 w-5 opacity-25 hover:opacity-100" />
+          </a>
+        </nav>
+      </footer>
     </>
   );
 }
