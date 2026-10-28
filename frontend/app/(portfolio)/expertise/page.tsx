@@ -29,7 +29,7 @@ export default function ExpertisePage() {
       <header className="mb-8">
         <p className="mb-2 text-sm font-medium text-gray-500">What I do</p>
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950">Expertise</h1>
-        <p className="mt-3 max-w-2xl text-gray-600">I build software that brings AI, automation, and dependable engineering together to solve real problems.</p>
+        <p className="mt-3 text-gray-600">I build software that brings AI, automation, and dependable engineering together to solve real problems.</p>
       </header>
       <div className="grid gap-4 md:grid-cols-3">
         {areas.map(({ icon: Icon, title, description }) => (

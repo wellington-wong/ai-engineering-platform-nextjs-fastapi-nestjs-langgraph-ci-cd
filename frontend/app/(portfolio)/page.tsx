@@ -8,7 +8,7 @@ export default function HomePage() {
       <header className="mb-8">
         <p className="mb-2 text-sm font-medium text-gray-500">Full-Stack Engineer | AI & Automation</p>
         <h1 className="text-3xl font-semibold tracking-tight text-gray-950">Wellington Wong</h1>
-        <p className="mt-3 max-w-2xl text-gray-600">
+        <p className="mt-3 text-gray-600">
           Full-Stack Engineer with 15+ years of experience building scalable web applications, SaaS platforms, APIs, and mobile apps. Proficient in agentic AI, machine learning, and automation, with hands-on experience developing AI-powered applications and ML solutions using RAG, embeddings, semantic search, LLM APIs, neural networks, and PyTorch-based deep learning. Experienced with LangChain, LangGraph, n8n, and prompt engineering.
         </p>
 
