@@ -105,19 +105,19 @@ export default function AppsLayout({
       <footer className="fixed inset-x-0 bottom-0 z-50 border-t border-gray-200 bg-[#F5F2ED]/95 backdrop-blur-sm">
         <nav aria-label="Contact and social links" className="mx-auto flex max-w-7xl items-center justify-end gap-2 px-3 py-2 sm:gap-5 sm:px-6">
           <a href="https://www.linkedin.com/in/wellingtonwong/" target="_blank" rel="noreferrer" title="LinkedIn" aria-label="LinkedIn" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
-            <img src="images/svg/linkedin.svg" title="" className="h-5 w-5 opacity-25 hover:opacity-100" />
+            <img src="/images/svg/linkedin.svg" title="" className="h-5 w-5 opacity-25 hover:opacity-100" />
           </a>
           <a href="https://github.com/wellington-wong" target="_blank" rel="noreferrer" title="GitHub" aria-label="GitHub" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
-            <img src="images/svg/github.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
+            <img src="/images/svg/github.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
           </a>
           <a href="mailto:wellingtonwong@gmail.com" title="Email Wellington" aria-label="Email Wellington" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
-            <img src="images/svg/email.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
+            <img src="/images/svg/email.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
           </a>
           <a href="tel:+639497692556" title="Call +63 949 769 2556" aria-label="Call +63 949 769 2556" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
-            <img src="images/svg/phone.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
+            <img src="/images/svg/phone.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
           </a>
           <a href="https://drive.google.com/file/d/12sz5IGpZDo7ozgAgqRcqdHd8Msw3LBBh/view?usp=sharing" target="_blank" rel="noreferrer" title="View Resume" aria-label="View Resume" className="inline-flex items-center gap-2 rounded-md px-2 py-2 text-sm text-gray-700 transition-colors hover:bg-white hover:text-gray-950">
-            <img src="images/svg/pdf.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
+            <img src="/images/svg/pdf.svg" alt="" className="h-5 w-5 opacity-25 hover:opacity-100" />
           </a>
         </nav>
       </footer>
