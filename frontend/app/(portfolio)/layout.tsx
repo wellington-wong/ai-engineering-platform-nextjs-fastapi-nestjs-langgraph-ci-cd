@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -37,7 +37,7 @@ export default function AppsLayout({
 
   return (
     <>
-      <Header saasMode={false} />
+      <Header saasMode={false} /><ClarityInit />
       <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
 
         <div className="lg:hidden flex items-center justify-between  bg-[#F5F2ED] border-b border-gray-200 p-4">
@@ -126,4 +126,12 @@ export default function AppsLayout({
       </footer>
     </>
   );
+}
+
+function ClarityInit() {
+  useEffect(() => {
+	  Clarity.init("wisod5y80f");
+  }, []);
+
+  return null;
 }
