@@ -19,6 +19,14 @@ export const viewport: Viewport = {
 
 const manrope = Manrope({ subsets: ['latin'] });
 
+function ClarityInit() {
+  useEffect(() => {
+    Clarity.init("wisod5y80f");
+  }, []);
+
+  return null;
+}
+
 export default function RootLayout({
   children
 }: {
@@ -33,7 +41,10 @@ export default function RootLayout({
       className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}
     >
       <body className="min-h-[100dvh] bg-[#F5F2ED]">
-        <SWRConfig
+          
+        
+        <ClarityInit />        
+        <SWRConfig  
           value={{
             fallback: {
               // We do NOT await here
