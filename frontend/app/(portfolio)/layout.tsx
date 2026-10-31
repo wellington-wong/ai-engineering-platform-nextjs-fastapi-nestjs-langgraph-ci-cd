@@ -11,6 +11,7 @@ import { Header } from '../(dashboard)/layout';
 export default function AppsLayout({
                                           children
                                         }: {
+
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
