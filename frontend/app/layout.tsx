@@ -21,6 +21,8 @@ const manrope = Manrope({ subsets: ['latin'] });
 
 function ClarityInit() {
   useEffect(() => {
+  
+  
     Clarity.init("wisod5y80f");
   }, []);
 
