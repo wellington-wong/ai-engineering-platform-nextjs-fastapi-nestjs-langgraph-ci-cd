@@ -25,7 +25,6 @@ export default function RootLayout({
 }: {  children: React.ReactNode;
 }) {
 
-  Clarity.init("wisod5y80f");
 
   return (
     <html
@@ -41,6 +40,7 @@ export default function RootLayout({
               // We do NOT await here
               // Only components that read this data will suspend
               '/api/user': getUser(),
+            
             
               '/api/team': getTeamForUser()
             }
