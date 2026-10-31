@@ -7,11 +7,13 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { AppWindow, ArrowUpRight, BriefcaseBusiness, ChevronRight, CodeXml, House, Mail, Menu } from 'lucide-react';
 import { Header } from '../(dashboard)/layout';
+import Clarity from '@microsoft/clarity';
 
 export default function AppsLayout({
                                           children
-                                        }: {
 
+
+}: {  
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
