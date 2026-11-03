@@ -1,0 +1,28 @@
+[project]
+name = "ml-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Wellington", email = "wellington.wong@exults.com" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.162.0",
+    "joblib>=1.6.0",
+    "matplotlib>=3.11.2",
+    "numpy>=2.5.4",
+    "pandas>=3.1.0",
+    "psycopg2-binary>=2.9.13",
+    "python-dotenv>=1.2.4",
+    "scikit-learn>=1.9.1",
+    "sqlalchemy>=2.1.6",
+    "uvicorn[standard]>=0.54.0",
+]
+
+[project.scripts]
+ml-service = "ml_service:main"
+
+[build-system]
+requires = ["uv_build>=0.12.19,<0.13.0"]
+build-backend = "uv_build"
