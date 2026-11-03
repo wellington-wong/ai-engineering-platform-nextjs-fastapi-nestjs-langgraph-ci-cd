@@ -12,80 +12,79 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model SystemMetric {
+  id                 Int      @id @default(autoincrement())
+  timestamp          DateTime @default(now())
+  cpuUsagePercent    Float
+  memoryUsagePercent Float
+  diskUsagePercent   Float
+  uptimeSeconds      Float
 
-    id                      Int         @id @default(autoincrement())
-    timestamp               DateTime    @default(now())
-    cpuUsagePercent         Float
-    memoryUsagePercent      Float
-    diskUsagePercent        Float
-    uptimeSeconds           Float
+  systemAnomaly SystemAnomaly?
 
-    @@index([timestamp])
-
+  @@index([timestamp])
 }
 
 model ContainerMetric {
-    id                  Int         @id @default(autoincrement())
-    timestamp           DateTime    @default(now())
-    containerId         String
+  id          Int      @id @default(autoincrement())
+  timestamp   DateTime @default(now())
+  containerId String
 
+  containerName    String
+  cpuUsagePercent  Float
+  memoryUsageBytes Float
+  memoryLimitBytes Float
 
-    containerName       String
-    cpuUsagePercent     Float
-    memoryUsageBytes    Float
-    memoryLimitBytes    Float
+  networkRxBytes Float?
+  networkTxBytes Float?
 
-    networkRxBytes      Float?
-    networkTxBytes      Float?
+  blockIoReadBytes  Float?
+  blockIoWriteBytes Float?
 
+  pidsCurrent Int?
+  pidsLimit   Int?
 
-
-
-    blockIoReadBytes    Float?
-    blockIoWriteBytes   Float?
-
-    pidsCurrent         Int?
-    pidsLimit           Int?
-
-    @@index([containerId, timestamp])
-
-
-
+  @@index([containerId, timestamp])
 }
 
-
 model Monitor {
-    id              Int         @id @default(autoincrement())
-    name            String
-    url             String
-    enabled         Boolean     @default(true)
-    createdAt       DateTime    @default(now())
-    updatedAt       DateTime    @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String
+  url       String
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    healthChecks    HealthCheck[]
+  healthChecks HealthCheck[]
 
-    @@index([enabled])
+  @@index([enabled])
 }
 
 model HealthCheck {
-    id              Int         @id @default(autoincrement())
-    monitorId       Int
-    timestamp       DateTime    @default(now())
+  id        Int      @id @default(autoincrement())
+  monitorId Int
+  timestamp DateTime @default(now())
 
+  healthy        Boolean
+  statusCode     Int?
+  responseTimeMs Float
+  error          String?
 
-    healthy         Boolean
-    statusCode      Int?
-    responseTimeMs  Float
-    error           String?
+  monitor Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
 
-    monitor Monitor @relation(fields: [monitorId], references: [id], onDelete: Cascade)
+  @@index([monitorId, timestamp])
+}
 
+model SystemAnomaly {
+  id             BigInt   @id @default(autoincrement())
+  systemMetricId Int      @unique
+  isAnomaly      Boolean
+  anomalyScore   Float
+  modelVersion   String   @db.VarChar(32)
+  evaluatedAt    DateTime @default(now()) @db.Timestamp(3)
 
+  systemMetric SystemMetric @relation(fields: [systemMetricId], references: [id], onDelete: Cascade)
+  //@@index([evaluatedAt(sort: Desc)], map: "SystemAnomaly_anomalies_idx", where: raw("\"isAnomaly\" = true"))
 
-
-
-
-    @@index([monitorId, timestamp])
+  @@index([evaluatedAt(sort: Desc)])
 }
