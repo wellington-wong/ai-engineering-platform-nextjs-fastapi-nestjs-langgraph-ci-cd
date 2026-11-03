@@ -161,8 +161,8 @@ jobs:
 
 
             docker compose pull api
-            docker compose up -d api
 
-
+            docker compose up -d api            
+            docker compose run --rm --no-deps api npx prisma migrate deploy
 
             docker image prune -f
