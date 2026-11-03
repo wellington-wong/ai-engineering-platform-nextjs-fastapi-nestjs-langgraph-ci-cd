@@ -5,7 +5,6 @@ import { Manrope } from 'next/font/google';
 
 import { getUser, getTeamForUser } from '@/lib/db/queries';
 import { SWRConfig } from 'swr';
-import Clarity from '@microsoft/clarity';
 
 export const metadata: Metadata = {
   title: { default: 'Wellington Wong — Full-Stack Engineer | AI & Automation', template: "%s | Wellington.Codes" },
@@ -19,13 +18,13 @@ export const viewport: Viewport = {
 
 const manrope = Manrope({ subsets: ['latin'] });
 
+
 export default function RootLayout({
   children
-}: {
-  children: React.ReactNode;
+  
+}: {  children: React.ReactNode;
 }) {
 
-  Clarity.init("wisod5y80f");
 
   return (
     <html
@@ -33,12 +32,16 @@ export default function RootLayout({
       className={`bg-white dark:bg-gray-950 text-black dark:text-white ${manrope.className}`}
     >
       <body className="min-h-[100dvh] bg-[#F5F2ED]">
-        <SWRConfig
+          
+        
+        <SWRConfig  
           value={{
             fallback: {
               // We do NOT await here
               // Only components that read this data will suspend
               '/api/user': getUser(),
+            
+            
               '/api/team': getTeamForUser()
             }
           }}
