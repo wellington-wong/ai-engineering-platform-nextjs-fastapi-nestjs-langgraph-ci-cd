@@ -92,14 +92,14 @@ export default function ObservabilityPage() {
 
     const latest = metrics.at(-1);
 
+
+    const techStack = [ "Next.js", "Nestjs", "FastAPI", "Isolation Forest", "PostgreSQL", "Docker", "CI/CD" ];
     return (
         <main className="min-h-screen p-8">
             <div className="mx-auto max-w-7xl">
                 <header className="mb-5">
-                    <h1 className="text-lg lg:text-2xl font-medium mb-6">
-                        VPS System Overview
-                    </h1>
-
+                    <h1 className="text-lg lg:text-2xl font-medium">Intelligent Anomaly Detection & Monitoring</h1>
+                    <p className="mt-2 text-gray-500">A machine learning-powered monitoring system built with NestJS and Isolation Forest to identify unusual patterns and detect anomalies in operational data. Helps surface potential issues through automated anomaly detection and monitoring workflows.</p>
 
 
 
@@ -139,6 +139,21 @@ export default function ObservabilityPage() {
 
                 <ContainerList containers={containers} />
 
+
+
+            </div>
+
+            <div className="mt-6">
+                <div className="flex flex-wrap gap-2">
+                    {techStack.map((tech) => (
+                        <span
+                            key={tech}
+                            className="rounded-md border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-700"
+                        >
+                          {tech}
+                        </span>
+                    ))}
+                </div>
             </div>
         </main>
     );

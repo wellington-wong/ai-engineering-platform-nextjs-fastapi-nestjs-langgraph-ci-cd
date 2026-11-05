@@ -41,17 +41,22 @@ export default function Home() {
             await loadNotes()
         } finally {
             setSummarizingNoteId(null)
+
+
         }
     }
-
+    const techStack = [ "Next.js", "FastAPI", "OpenAI", "PostgreSQL", "Docker", "CI/CD" ];
     return (
         <div className="mx-auto max-w-7xl p-6 lg:p-8 container notes">
 
             <header className="mb-5">
-                <h1 className="text-lg lg:text-2xl font-medium mb-6">AI Notes Summarizer</h1>
+                <h1 className="text-lg lg:text-2xl font-medium">AI Notes Summarizer</h1>
+
+
+                <p className="mt-2 text-gray-500">An AI-powered agent built with FastAPI and OpenAI to understand user requests,
+                    reason through tasks, and generate intelligent responses. Designed with a scalable backend architecture to
+                    support extensible AI workflows and integrations.</p>
             </header>
-
-
             <form
                 className="note-form"
                 onSubmit={(e) => {
@@ -93,6 +98,19 @@ export default function Home() {
                     </button>}
                 </div>
             ))}
+
+            <div className="mt-6">
+                <div className="flex flex-wrap gap-2">
+                    {techStack.map((tech) => (
+                        <span
+                            key={tech}
+                            className="rounded-md border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-700"
+                        >
+                          {tech}
+                        </span>
+                    ))}
+                </div>
+            </div>
         </div>
     )
 

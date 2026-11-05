@@ -69,23 +69,64 @@ export default function DiscoveryAgent() {
   const step = session?.current_step;
   const progress = session ? Math.min(100, Math.round((session.step_index / session.max_steps) * 100)) : 0;
   const setValue = (id: string, value: Values[string]) => setAnswers((existing) => ({ ...existing, [id]: value }));
-
+  const techStack = [ "Next.js", "FastAPI", "OpenAI", "LangGraph", "PostgreSQL", "Docker", "CI/CD" ];
   return <div className="mx-auto max-w-7xl p-6 lg:p-8">
 
     <header className="mb-5">
-      <h1 className="text-lg lg:text-2xl font-medium">AI Agent</h1>
-      <p className="mt-2 text-gray-500">Describe your project and answer a few adaptive questions to build a project overview.</p>
+      <h1 className="text-lg lg:text-2xl font-medium">Adaptive Project Discovery</h1>
+      <p className="mt-2 text-gray-500">An AI-powered agent built with FastAPI and OpenAI to understand user requests,
+        reason through tasks, and generate intelligent responses. Designed with a scalable backend architecture to
+        support extensible AI workflows and integrations.</p>
     </header>
     <section className="rounded-xl border border-gray-200 bg-white p-6 sm:p-8">
-      {overview ? <><OverviewSections overview={overview} /><Button type="button" onClick={startNew} className="mt-8">Start a new project</Button></> : !session ? <form onSubmit={handleCreate} className="space-y-5">
-        <div><Label htmlFor="project-description" className="mb-2 block text-sm font-medium">What project would you like to explore?</Label><textarea id="project-description" value={projectDescription} onChange={(event) => setProjectDescription(event.target.value)} required maxLength={10000} rows={6} placeholder="Describe the project, the problem it addresses, and anything you already know." className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500" /><p className="mt-1 text-xs text-gray-500">Up to 10,000 characters.</p></div>
-        {error && <p role="alert" className="text-sm text-red-600">{error}</p>}<Button type="submit" disabled={pending || !projectDescription.trim()}>{pending ? 'Starting project…' : 'Start discovery'}</Button>
+      {overview ? <><OverviewSections overview={overview}/><Button type="button" onClick={startNew} className="mt-8">Start
+        a new project</Button></> : !session ? <form onSubmit={handleCreate} className="space-y-5">
+        <div><Label htmlFor="project-description" className="mb-2 block text-sm font-medium">What project would you like
+          to explore?</Label><textarea id="project-description" value={projectDescription}
+                                       onChange={(event) => setProjectDescription(event.target.value)} required
+                                       maxLength={10000} rows={6}
+                                       placeholder="Describe the project, the problem it addresses, and anything you already know."
+                                       className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"/>
+          <p className="mt-1 text-xs text-gray-500">Up to 10,000 characters.</p></div>
+        {error && <p role="alert" className="text-sm text-red-600">{error}</p>}<Button type="submit"
+                                                                                       disabled={pending || !projectDescription.trim()}>{pending ? 'Starting project…' : 'Start discovery'}</Button>
       </form> : <>
-        <div className="mb-6"><div className="mb-2 flex justify-between text-sm"><span className="font-medium text-gray-900">Discovery progress</span><span className="text-gray-500">Step {Math.min(session.step_index + 1, session.max_steps)} of {session.max_steps}</span></div><div className="h-2 overflow-hidden rounded-full bg-gray-100"><div className="h-full rounded-full bg-orange-600 transition-all" style={{ width: `${progress}%` }} /></div></div>
-        {step ? <><h2 className="text-xl font-semibold text-gray-900">{step.title}</h2><p className="mt-2 mb-6 text-sm leading-6 text-gray-600">{step.description}</p><form onSubmit={handleAnswers} className="space-y-5">{step.fields.map((field) => <div key={field.id} className="space-y-2"><Label htmlFor={field.id} className="block text-sm font-medium text-gray-800">{field.label}{field.required && <span className="text-red-600"> *</span>}</Label><FieldControl field={field} value={answers[field.id]} onChange={(value) => setValue(field.id, value)} />{field.helper_text && <p id={`${field.id}-help`} className="text-xs text-gray-500">{field.helper_text}</p>}</div>)}
-          {error && <p role="alert" className="text-sm text-red-600">{error}</p>}<div className="flex flex-wrap gap-3 pt-2"><Button type="submit" disabled={pending}>{pending ? 'Saving…' : 'Continue'}</Button><Button type="button" variant="outline" onClick={startNew} disabled={pending}>Start a new project</Button></div>
-        </form></> : <p role="status" className="text-sm text-gray-600">Preparing your next question…</p>}
+        <div className="mb-6">
+          <div className="mb-2 flex justify-between text-sm"><span className="font-medium text-gray-900">Discovery progress</span><span
+              className="text-gray-500">Step {Math.min(session.step_index + 1, session.max_steps)} of {session.max_steps}</span>
+          </div>
+          <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+            <div className="h-full rounded-full bg-orange-600 transition-all" style={{width: `${progress}%`}}/>
+          </div>
+        </div>
+        {step ? <><h2 className="text-xl font-semibold text-gray-900">{step.title}</h2><p
+            className="mt-2 mb-6 text-sm leading-6 text-gray-600">{step.description}</p>
+          <form onSubmit={handleAnswers} className="space-y-5">{step.fields.map((field) => <div key={field.id}
+                                                                                                className="space-y-2">
+            <Label htmlFor={field.id}
+                   className="block text-sm font-medium text-gray-800">{field.label}{field.required &&
+                <span className="text-red-600"> *</span>}</Label><FieldControl field={field} value={answers[field.id]}
+                                                                               onChange={(value) => setValue(field.id, value)}/>{field.helper_text &&
+              <p id={`${field.id}-help`} className="text-xs text-gray-500">{field.helper_text}</p>}</div>)}
+            {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+            <div className="flex flex-wrap gap-3 pt-2"><Button type="submit"
+                                                               disabled={pending}>{pending ? 'Saving…' : 'Continue'}</Button><Button
+                type="button" variant="outline" onClick={startNew} disabled={pending}>Start a new project</Button></div>
+          </form>
+        </> : <p role="status" className="text-sm text-gray-600">Preparing your next question…</p>}
       </>}
     </section>
+    <div className="mt-6">
+      <div className="flex flex-wrap gap-2">
+        {techStack.map((tech) => (
+            <span
+                key={tech}
+                className="rounded-md border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-700"
+            >
+          {tech}
+        </span>
+        ))}
+      </div>
+    </div>
   </div>;
 }
