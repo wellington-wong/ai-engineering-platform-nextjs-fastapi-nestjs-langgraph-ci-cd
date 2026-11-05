@@ -213,7 +213,7 @@ export default function RagChat() {
     }
 
     return (
-        <div className="flex h-screen bg-gray-50">
+        <div className="flex h-[90dvh] bg-gray-50">
             {/* Sessions sidebar */}
             <aside
                 className={`fixed inset-y-0 left-0 z-20 flex w-64 flex-col border-r bg-white transition-transform md:static md:translate-x-0 ${
