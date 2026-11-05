@@ -271,5 +271,19 @@
   }
   body {
     @apply bg-background text-foreground;
+
+  }
+}
+
+
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
 }

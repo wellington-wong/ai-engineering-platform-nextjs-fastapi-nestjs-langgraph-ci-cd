@@ -213,14 +213,14 @@ export default function RagChat() {
         } catch {}
     }
 
-    const techStack = [ "Next.js", "Spring Boot", "Anthropic", "PostgreSQL", "Docker", "CI/CD" ]
+    const techStack = [ "Next.js", "Spring Boot", "Anthropic", "Voyage AI", "PostgreSQL", "Docker", "CI/CD" ]
     return (
         <div className="mx-auto max-w-7xl p-6 lg:p-8">
             <header className="mb-5">
                 <h1 className="text-lg lg:text-2xl font-medium">Context-Aware RAG Chatbot</h1>
                 <p className="mt-2 text-gray-500">A retrieval-augmented generation (RAG) chatbot built with Spring Boot, Anthropic, and Voyage AI. Combines semantic search and contextual retrieval to deliver accurate, knowledge-grounded responses based on relevant information.</p>
             </header>
-            <div className="flex h-[65dvh] bg-gray-50">
+            <div className="flex h-[60dvh] bg-gray-50">
                 {/* Sessions sidebar */}
                 <aside
                     className={`fixed inset-y-0 left-0 z-20 flex w-64 flex-col border-r bg-white transition-transform md:static md:translate-x-0 ${
