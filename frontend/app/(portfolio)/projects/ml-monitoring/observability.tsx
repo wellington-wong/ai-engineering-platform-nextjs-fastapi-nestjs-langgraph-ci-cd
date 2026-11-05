@@ -95,7 +95,7 @@ export default function ObservabilityPage() {
     return (
         <main className="min-h-screen p-8">
             <div className="mx-auto max-w-7xl">
-                <header className="mb-8">
+                <header className="mb-5">
                     <h1 className="text-lg lg:text-2xl font-medium mb-6">
                         VPS System Overview
                     </h1>

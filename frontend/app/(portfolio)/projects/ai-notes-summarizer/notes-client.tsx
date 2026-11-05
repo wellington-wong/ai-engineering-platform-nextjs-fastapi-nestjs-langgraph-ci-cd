@@ -47,7 +47,7 @@ export default function Home() {
     return (
         <div className="mx-auto max-w-7xl p-6 lg:p-8 container notes">
 
-            <header className="mb-8">
+            <header className="mb-5">
                 <h1 className="text-lg lg:text-2xl font-medium mb-6">AI Notes Summarizer</h1>
             </header>
 

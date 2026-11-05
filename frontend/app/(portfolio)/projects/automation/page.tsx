@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function AutomationPage() {
   return (
     <div className="mx-auto max-w-7xl p-6 lg:p-8">
-      <header className="mb-8">
+      <header className="mb-5">
         <h1 className="text-lg lg:text-2xl font-medium mb-6">Automation Workflow - n8n</h1>
       </header>
 
