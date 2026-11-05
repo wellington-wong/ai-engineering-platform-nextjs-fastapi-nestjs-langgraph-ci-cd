@@ -21,11 +21,12 @@ export default function AppsLayout({
 
   const navItems = [
     { href: '/', icon: House, label: 'Home' },
+
     { href: '/expertise', icon: CodeXml, label: 'Expertise' },
     { href: '/projects', icon: BriefcaseBusiness, label: 'AI Projects' },
     { href: '/projects/ai-agent', icon: ChevronRight, label: 'AI Agent', nested: true },
 
-    { href: 'https://ragchat.wellington.codes', icon: ChevronRight, label: 'RAG Chat', target: '_blank', nested: true },
+    { href: '/projects/rag-chat', icon: ChevronRight, label: 'RAG Chat', nested: true },
     { href: '/projects/automation', icon: ChevronRight, label: 'Automation', nested: true },
     { href: '/projects/ml-monitoring', icon: ChevronRight, label: 'ML Monitoring', nested: true },
     { href: '/projects/ai-notes-summarizer', icon: ChevronRight, label: 'AI Notes Summarizer', nested: true },
