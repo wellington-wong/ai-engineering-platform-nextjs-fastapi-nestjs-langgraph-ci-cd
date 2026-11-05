@@ -223,7 +223,7 @@ export default function RagChat() {
             <div className="flex h-[60dvh] bg-gray-50">
                 {/* Sessions sidebar */}
                 <aside
-                    className={`fixed inset-y-0 left-0 z-20 flex w-64 flex-col border-r bg-white transition-transform md:static md:translate-x-0 ${
+                    className={`fixed inset-y-0 left-0 z-20 flex w-64 flex-col border-r border-gray-200 bg-white transition-transform md:static md:translate-x-0 ${
                         sidebarOpen ? "translate-x-0" : "-translate-x-full"
                     }`}
                 >
@@ -269,14 +269,14 @@ export default function RagChat() {
 
                 {/* Chat area */}
                 <div className="flex min-w-0 flex-1 flex-col">
-                    <header className="flex items-center gap-3 border-b bg-white px-4 py-3">
+                    <header className="flex items-center gap-3 border-b border-gray-200 bg-white px-4 py-3">
                         <button onClick={() => setSidebarOpen(true)} className="md:hidden" aria-label="Open chats">
                             ☰
                         </button>
                         <h1 className="flex-1 truncate text-lg font-semibold">{activeSession?.title ?? "RAG Chat"}</h1>
                         <button
                             onClick={() => setShowDocPanel((v) => !v)}
-                            className="rounded-lg border px-3 py-1 text-sm hover:bg-gray-100"
+                            className="rounded-lg border border-gray-200 px-3 py-1 text-sm hover:bg-gray-100"
                         >
                             Docs ({documents.length})
                         </button>
@@ -293,7 +293,7 @@ export default function RagChat() {
                         {messages.map((m) => (
                             <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                                 <div
-                                    className={`max-w-[85%] rounded-2xl px-4 py-2 text-sm sm:max-w-[70%] ${
+                                    className={`max-w-[85%] border-gray-200 rounded-2xl px-4 py-2 text-sm sm:max-w-[70%] ${
                                         m.role === "user" ? "bg-blue-600 text-white" : "border bg-white text-gray-800"
                                     }`}
                                 >
@@ -325,7 +325,7 @@ export default function RagChat() {
                             e.preventDefault();
                             sendMessage();
                         }}
-                        className="flex gap-2 border-t bg-white p-3"
+                        className="flex gap-2 border-t border-gray-200 bg-white p-3"
                     >
               <textarea
                   value={inputText}
@@ -338,7 +338,7 @@ export default function RagChat() {
                           ? "Create or select a chat first..."
                           : "Type your question... (Shift+Enter for new line)"
                   }
-                  className="flex-1 resize-none rounded-lg border px-3 py-2 text-sm outline-none focus:border-blue-500 disabled:bg-gray-100"
+                  className="flex-1 resize-none rounded-lg border border-gray-200 px-3 py-2 text-sm outline-none focus:border-blue-500 disabled:bg-gray-100"
               />
                         <button
                             type="submit"
